@@ -49,23 +49,3 @@ news_list = {"URL":links, "Content" : contents}
 result = pd.DataFrame(news_list)
 result.to_excel("theminjoo_yoon.xlsx",index = False)
 
-from google.colab import drive
-drive.mount('/content/drive')
-
-import requests # 웹서버에 request 보낼 수 있는 라이브러리
-from bs4 import BeautifulSoup as bs # 파싱을 위한 라이브러리
-import pandas as pd
-url_list1 = []
-url_list2 = []
-url = "https://theminjoo.kr/board/lists/briefing?page=2"
-res = requests.get(url)
-html = res.content
-soup = bs(html, "html.parser")
-a_tags = soup.find_all("a") 
-for a_tag in a_tags:
-  url_list1.append(a_tag['href'])
-for link in url_list1:
-  if "/board/view/briefing/" in link:
-    url_list2.append(link)
-print(url_list2)
-
